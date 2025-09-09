@@ -73,3 +73,22 @@ flowchart LR
     ult4_mn --> klt2_mn
   end
 ```
+
+## Mutex Working 
+* `Mutex<T>` is a smart pointer. More accurately, the call to `lock`  _returns_ a smart pointer called `MutexGuard`
+* MutexGuard implements the trait Deref hence the data inside of it can be treated like a regular reference like this way
+   ```
+   use std::sync::Mutex;
+    fn main()
+    {
+    let v=Mutex::new(23);
+    //when u lock u get the mutex guard MutexGuard<u32>
+    {
+    let x=v.lock().unwrap();
+    *x+=23;
+    }
+    }
+    ```
+ *  the smart pointer also has a `Drop` implementation that releases the lock automatically when a `MutexGuard` goes out of scope
+    
+
